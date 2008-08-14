@@ -26,7 +26,7 @@ class SwitchBox
   end
   
   def [](name)
-    raise ArgumentError, "condition '#{name}' not set" if @conditions[name].nil?
+    raise ArgumentError, "condition '#{name}' not declared" if @conditions[name].nil?
     return @results[name] unless @results[name].nil?
     @results[name] = !!@conditions[name].call
   end

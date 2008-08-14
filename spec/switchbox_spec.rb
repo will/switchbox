@@ -35,6 +35,10 @@ describe SwitchBox, "conditions" do
     @box[:cond].should be_false
   end
   
+  it "should raise an argument error if asked for a condition that has not been declared" do
+    lambda { @box[:not_declared] }.should raise_error(ArgumentError)
+  end
+  
   describe "should only evaluate things once, and save the result" do
     before do
       @pineapple = mock "pinapple"
