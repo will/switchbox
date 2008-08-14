@@ -1,4 +1,4 @@
-require 'switchbox'
+require 'lib/switchbox'
 
 params = {:edit => false}
 class FakeAR; attr_accessor :save end
