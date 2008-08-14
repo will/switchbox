@@ -24,7 +24,7 @@ describe SwitchBox, "conditions" do
   it "should be able to combine conditions" do
     @box.condition(:cond_1) { true }
     @box.condition(:cond_2) { false }
-    @box.condition :combo, :cond_1, :cond_2
+    @box.condition :combo => [:cond_1, :cond_2]
     @box[:combo].should be_false
   end
   

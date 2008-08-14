@@ -11,13 +11,15 @@ class SwitchBox
     end
   end
   
-  def condition(name, *cond_list, &block)
+  def condition(name, &block)
     if block_given?
       @conditions[name] = block
       @results[name] = nil
       @conditions[:"not_#{name}"] = lambda { !self[name] }
     else
-      @conditions[name] = lambda { cond_list.all?{|cond| self[cond] } }
+      name.each_pair do |new_cond, depedants|
+        @conditions[new_cond] = lambda { depedants.all?{ |cond| self[cond] } }
+      end
     end
   end
   

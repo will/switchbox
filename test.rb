@@ -6,7 +6,7 @@ record = FakeAR.new
 record.save = true
 
 SwitchBox.new do
-  condition :combination, :new, :not_edit, :yes
+  condition :combination => [:new, :not_edit, :yes]
   condition(:new)  { true }
   condition(:edit) { params[:edit] }
   condition(:yes)  { true }
