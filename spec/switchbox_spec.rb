@@ -115,6 +115,14 @@ describe SwitchBox, "actions" do
     @mango.should_not_receive :not_action
     @mango.should_not_receive :not_action_2
   end
+  
+  it "should be able to prepend actions so that they get checked and ran first" do
+    @box.action(:true_cond) { @mango.first_action }
+    @box.prepend_action(:true_cond_2) { @mango.second_action }
+    
+    @mango.should_receive     :second_action
+    @mango.should_not_receive :first_action
+  end
 end
 
 describe SwitchBox, "#new" do

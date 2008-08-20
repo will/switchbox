@@ -24,7 +24,11 @@ class SwitchBox
   end
   
   def action(*conditions, &block)
-    @actions << [lambda{ conditions.all?{|cond| self[cond]} }, block]
+    @actions << action_item( conditions, block )
+  end
+  
+  def prepend_action(*conditions, &block)
+    @actions.unshift action_item( conditions, block )
   end
   
   def [](name)
@@ -36,6 +40,13 @@ class SwitchBox
   def go
     action = @actions.find {|conds,act| conds.call }
     action.last.call if action
+  end
+  
+  private
+  def action_item(*args)
+    action = args.pop
+    conditions = args.flatten
+    [ lambda{ conditions.all? { |cond| self[cond] } }, action ]
   end
 end
 
